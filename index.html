@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="bn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- icon link -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Professional Routine App</title>
+    <style>
+      /* CSS Variables for easy color change */
+      :root {
+        --primary-color: #04aa6d;
+        --bg-dark: #0f172a;
+        --glass-border: rgba(255, 255, 255, 0.1);
+        --main-font: "Hind Siliguri", sans-serif;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Hind Siliguri", sans-serif;
+      }
+
+      body {
+        padding: 5px;
+        overflow-x: hidden;
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        top: 0;
+        left: 0;
+        z-index: -2;
+        height: 100vh;
+        width: 100%;
+        background-color: #000000;
+        background-image: radial-gradient(#ffffff33 1px, #00091d 1px);
+        background-size: 20px 20px;
+      }
+
+      h2 {
+        color: white;
+        text-align: center;
+        padding-bottom: 10px;
+      }
+      h5 {
+        color: white;
+        text-align: center;
+        padding-bottom: 10px;
+      }
+      h4 {
+        color: white;
+        text-align: center;
+        padding-bottom: 10px;
+      }
+      h3 {
+        color: white;
+        text-align: center;
+        padding-bottom: 10px;
+      }
+
+      /* Navigation Styling - Responsive */
+      .topnav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        /* background: var(--glass-bg); */
+        backdrop-filter: blur(10px);
+        padding: 10px;
+        border-radius: 15px;
+        border: 1px solid var(--glass-border);
+        margin-bottom: 30px;
+        width: 100%;
+        max-width: 600px;
+      }
+
+      .topnav a {
+        color: #cbd5e1;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 10px;
+        font-size: 15px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .topnav a:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+      }
+
+      .topnav a.active {
+        background: var(--primary-color);
+        color: white;
+        box-shadow: 0 4px 15px rgba(4, 170, 109, 0.3);
+      }
+
+      /* Content Section Styling */
+      .content-container {
+        width: 100%;
+        max-width: 600px;
+      }
+
+      .day-content {
+        display: none; /* শুরুতে সব হাইড থাকবে */
+        background: var(--glass-bg);
+        backdrop-filter: blur(15px);
+        padding: 25px;
+        border-radius: 20px;
+        border: 1px solid var(--glass-border);
+        animation: fadeIn 0.5s ease;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .routine-list {
+        list-style: none;
+      }
+
+      .routine-item {
+        background: rgba(255, 255, 255, 0.03);
+        color: white;
+        margin-bottom: 12px;
+        padding: 15px;
+        border-radius: 12px;
+        display: flex;
+        justify-content: space-between;
+        width: auto;
+        flex-wrap: wrap;
+        align-items: center;
+        border-left: 1px solid var(--primary-color);
+      }
+
+      .time {
+        font-size: 0.85rem;
+        color: #94a3b8;
+      }
+      .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: var(--primary-color);
+        color: white;
+        text-align: center;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* Responsive adjustments for Mobile */
+      @media (max-width: 480px) {
+        .topnav a {
+          flex: 1 1 40%; /* মোবাইলে দুই লাইনে বাটনগুলো সুন্দর দেখাবে */
+          text-align: center;
+          padding: 12px;
+        }
+
+        .routine-item {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 5px;
+        }
+      }
+    </style>
+  </head>
+  <body class="hind-siliguri">
+    <h2>Lakshmipur Polytechnic Institute</h2>
+    <h5>Class <em>Routine</em> for Accademic year-2026</h5>
+    <h4>Tecnology: <span style="color: var(--primary-color)">Civil</span></h4>
+    <!-- Navigation -->
+    <div class="topnav" id="day-nav">
+      <a onclick="showDay('sun', this)"
+        ><i class="fa-regular fa-calendar"></i>রবিবার</a
+      >
+      <a onclick="showDay('mon', this)"
+        ><i class="fa-regular fa-calendar"></i>সোমবার</a
+      >
+      <a onclick="showDay('tue', this)"
+        ><i class="fa-regular fa-calendar"></i>মঙ্গলবার</a
+      >
+      <a onclick="showDay('wed', this)"
+        ><i class="fa-regular fa-calendar"></i>বুধবার</a
+      >
+      <a onclick="showDay('thu', this)"
+        ><i class="fa-regular fa-calendar"></i>বৃহস্পতিবার</a
+      >
+    </div>
+
+    <!-- Content Sections -->
+    <div class="content-container">
+      <!-- রবিবার -->
+      <div id="sun" class="day-content">
+        <h3><i class="fa-solid fa-clock"></i> রবিবার এর রুটিন</h3>
+        <ul class="routine-list">
+          <li class="routine-item">
+            <span>26471</span>
+            <span class="time">1:15-3:30</span>
+          </li>
+          <li class="routine-item">
+            <span>25853-ইনোভেশন আ্যান্ড এন্টারপ্রিনিউরশিপ</span>
+            <span class="time">3:30-4:15</span>
+          </li>
+          <li class="routine-item">
+            <span>26472-স্যানিটারি ইন্জিনিয়ারিং</span>
+            <span class="time">4:15-5:00</span>
+          </li>
+          <li class="routine-item">
+            <span>28871-কনস্ট্রাকশন ম্যানেজমেন্ট অ্যান্ড ডকুমেন্টেশন</span>
+            <span class="time">5:00-5:45</span>
+          </li>
+          <li class="routine-item">
+            <span>26475-এস্টিমেটিং অ্যান্ড কস্টিং -২</span>
+            <span class="time">5:45-6:30</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- সোমবার -->
+      <div id="mon" class="day-content">
+        <h3><i class="fa-solid fa-clock"></i> সোমবার এর রুটিন</h3>
+        <ul class="routine-list">
+          <li class="routine-item">
+            <span>26473-ট্রান্সপোর্টেশন ইন্জিনিয়ারিং -২</span>
+            <span class="time">1:15-2:00</span>
+          </li>
+          <li class="routine-item">
+            <span>26474-ডিজাইন অব স্ট্রাকচার -২</span>
+            <span class="time">2:00-2:45</span>
+          </li>
+          <li class="routine-item">
+            <span>25851-প্রিন্সিপলস্ অব মার্কেটিং</span>
+            <span class="time">2:45-3:30</span>
+          </li>
+          <li class="routine-item">
+            <span>26472-স্যানিটারি ইন্জিনিয়ারিং</span>
+            <span class="time">3:30-4:15</span>
+          </li>
+          <li class="routine-item">
+            <span>28871-কনস্ট্রাকশন ম্যানেজমেন্ট অ্যান্ড ডকুমেন্টেশন</span>
+            <span class="time">4:15-6:30</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- মঙ্গলবার -->
+      <div id="tue" class="day-content">
+        <h3><i class="fa-solid fa-clock"></i> মঙ্গলবার এর রুটিন</h3>
+        <ul class="routine-list">
+          <li class="routine-item">
+            <span>26473-ট্রান্সপোর্টেশন ইন্জিনিয়ারিং -২</span>
+            <span class="time">1:15-3:30</span>
+          </li>
+          <li class="routine-item">
+            <span>28871-কনস্ট্রাকশন ম্যানেজমেন্ট অ্যান্ড ডকুমেন্টেশন</span>
+            <span class="time">3:30-4:15</span>
+          </li>
+          <li class="routine-item">
+            <span>26475-এস্টিমেটিং অ্যান্ড কস্টিং -২</span>
+            <span class="time">4:15-6:30</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- বুধবার -->
+      <div id="wed" class="day-content">
+        <h3><i class="fa-solid fa-clock"></i> বুধবার এর রুটিন</h3>
+        <ul class="routine-list">
+          <li class="routine-item">
+            <span>26474-ডিজাইন অব স্ট্রাকচার -২</span>
+            <span class="time">1:15-3:30</span>
+          </li>
+          <li class="routine-item">
+            <span>25851-প্রিন্সিপলস্ অব মার্কেটিং</span>
+            <span class="time">3:30-4:15</span>
+          </li>
+          <li class="routine-item">
+            <span>26471</span> <span class="time">4:15-6:30</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- বৃহস্পতিবার -->
+      <div id="thu" class="day-content">
+        <h3><i class="fa-solid fa-clock"></i> বৃহস্পতিবার এর রুটিন</h3>
+        <ul class="routine-list">
+          <li class="routine-item">
+            <span>26472-স্যানিটারি ইন্জিনিয়ারিং</span>
+            <span class="time">1:15-3:30</span>
+          </li>
+          <li class="routine-item">
+            <span>26474-ডিজাইন অব স্ট্রাকচার -২</span>
+            <span class="time">3:30-4:15</span>
+          </li>
+          <li class="routine-item">
+            <span>25853-ইনোভেশন আ্যান্ড এন্টারপ্রিনিউরশিপ</span>
+            <span class="time">4:15-5:00</span>
+          </li>
+          <li class="routine-item">
+            <span>26475-এস্টিমেটিং অ্যান্ড কস্টিং -২</span>
+            <span class="time">5:00-5:45</span>
+          </li>
+          <li class="routine-item">
+            <span>26473-ট্রান্সপোর্টেশন ইন্জিনিয়ারিং -২</span>
+            <span class="time">5:45-6:30</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer">
+      <p>©shariar shuvo</p>
+    </div>
+    <script>
+      // নির্দিষ্ট দিনের কন্টেন্ট দেখানোর ফাংশন
+      function showDay(dayId, element) {
+        // ১. সব কন্টেন্ট হাইড করা
+        const contents = document.querySelectorAll(".day-content");
+        contents.forEach((content) => (content.style.display = "none"));
+
+        // ২. সব লিঙ্ক থেকে 'active' ক্লাস রিমুভ করা
+        const navLinks = document.querySelectorAll(".topnav a");
+        navLinks.forEach((link) => link.classList.remove("active"));
+
+        // ৩. সিলেক্ট করা কন্টেন্ট দেখানো এবং লিঙ্কে 'active' ক্লাস যোগ করা
+        document.getElementById(dayId).style.display = "block";
+        if (element) {
+          element.classList.add("active");
+        }
+      }
+
+      // অটোমেটিক আজকের দিন সিলেক্ট করার ফাংশন
+      function autoSelectToday() {
+        const days = ["sun", "mon", "tue", "wed", "thu"];
+        const todayIndex = new Date().getDay(); // ০=রবিবার
+
+        // যদি আজ রবিবার থেকে বৃহস্পতিবারের মধ্যে হয়
+        if (todayIndex >= 0 && todayIndex <= 4) {
+          const dayId = days[todayIndex];
+          const activeLink = document.querySelectorAll(".topnav a")[todayIndex];
+          showDay(dayId, activeLink);
+        } else {
+          // শুক্র বা শনিবার হলে ডিফল্টভাবে রবিবার দেখাবে
+          showDay("sun", document.querySelectorAll(".topnav a")[0]);
+        }
+      }
+
+      window.onload = autoSelectToday;
+    </script>
+  </body>
+</html>
